@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/save"
+        android:icon="@drawable/ic_save_black_24dp"
+        app:showAsAction="always"
+        android:title="Save" />
+    <item
+        android:id="@+id/normal"
+        android:title="NORMAL" />
+<!--    <item-->
+<!--        android:id="@+id/emboss"-->
+<!--        android:title="EMBOSS" />-->
+    <item
+        android:id="@+id/blur"
+        android:title="BLUR" />
+    <item
+        android:id="@+id/clear"
+        android:title="CLEAR" />
+</menu>
