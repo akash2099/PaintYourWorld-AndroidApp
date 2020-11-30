@@ -1,18 +1,14 @@
 package com.akash2099.paintyourworld;
 
 import android.Manifest;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.media.MediaScannerConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,6 +22,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
@@ -110,23 +107,81 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+//        invalidateOptionsMenu();
+
         switch (item.getItemId()) {
             case R.id.save:
                 CheckUserPermsions();
                 return true;
-            case R.id.normal:
-                paintView.normal();
+            case R.id.undo:
+                paintView.onClickUndo();
                 return true;
+            case R.id.redo:
+                paintView.onClickRedo();
+                return true;
+//            case R.id.normal:
+//                System.out.println("Hi normal");
+//                Drawable icon_menu=item.getIcon();
+//                Drawable blur_on=getDrawable(R.drawable.ic_blur_on_black_24dp);
+//                Drawable blur_off=getDrawable(R.drawable.ic_blur_off_black_24dp);
+//                if(icon_menu==blur_off){
+//                    System.out.println("Hi blur mode");
+//                    paintView.blur();
+//                    item.setIcon(ContextCompat.getDrawable(this,R.drawable.ic_blur_on_black_24dp));
+//                }
+//                else{
+//                    System.out.println("Hi normal mode");
+//                    paintView.normal();
+////                    invalidateOptionsMenu();
+//                    item.setIcon(ContextCompat.getDrawable(this,R.drawable.ic_blur_off_black_24dp));
+//                }
+//                return true;
 //            case R.id.emboss:
 //                paintView.emboss();
 //                return true;
+            case R.id.normal:
+                paintView.normal();
+                return true;
             case R.id.blur:
                 paintView.blur();
                 return true;
             case R.id.clear:
-                paintView.clear();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+                // Setting Dialog Title
+                alertDialog.setTitle("Confirm Delete");
+
+                // Setting Dialog Message
+                alertDialog.setMessage("Clear the whole canvas?");
+
+                // Setting Icon to Dialog
+                alertDialog.setIcon(R.drawable.ic_clear_black_24dp);
+
+                // Setting Positive "Yes" Btn
+                alertDialog.setPositiveButton("CLEAR",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Write your code here to execute after dialog
+                                paintView.clear();
+                            }
+                        });
+                // Setting Negative "NO" Btn
+                alertDialog.setNegativeButton("CANCEL",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Write your code here to execute after dialog
+//                            Toast.makeText(getApplicationContext(),
+//                                    "You clicked on NO", Toast.LENGTH_SHORT)
+//                                    .show();
+                                dialog.cancel();
+                            }
+                        });
+
+                // Showing Alert Dialog
+                alertDialog.show();
                 return true;
         }
 
@@ -269,7 +324,7 @@ public class MainActivity extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         System.out.println("created");
         String folder_main = "PaintYourWorld";
-        File outerFolder = new File(Environment.getExternalStorageDirectory()+"/DCIM", folder_main);
+        File outerFolder = new File(Environment.getExternalStorageDirectory() + "/DCIM", folder_main);
         if (!outerFolder.exists()) {
             outerFolder.mkdirs();
             System.out.println("FOlder created");
@@ -317,7 +372,7 @@ public class MainActivity extends AppCompatActivity {
 //            ContentResolver cr = getContentResolver();
 //            cr.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 //        System.out.println(path+ " " +System.currentTimeMillis() + " File created and saved to galary");
-        System.out.println(" " +System.currentTimeMillis() + " File created and saved to galary");
+        System.out.println(" " + System.currentTimeMillis() + " File created and saved to galary");
 
 //
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)

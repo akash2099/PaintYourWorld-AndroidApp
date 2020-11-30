@@ -110,7 +110,8 @@ public class MyPaintView extends View {
     private float mX, mY;
     private Path mPath;
     private Paint mPaint;
-    private ArrayList<FingerPath> paths = new ArrayList<>();
+    private ArrayList<FingerPath> paths = new ArrayList<FingerPath>();
+    private ArrayList<FingerPath> undonePaths = new ArrayList<FingerPath>();
     private int currentColor;
     private int backgroundColor = DEFAULT_BG_COLOR;
     private int strokeWidth;
@@ -153,16 +154,16 @@ public class MyPaintView extends View {
         strokeWidth = BRUSH_SIZE;
     }
 
-    public int get_color(){
+    public int get_color() {
         return currentColor;
     }
 
-    public void set_color(int color_value){
-        currentColor=color_value;
+    public void set_color(int color_value) {
+        currentColor = color_value;
     }
 
-    public void set_stroke_size(int value){
-        strokeWidth=value;
+    public void set_stroke_size(int value) {
+        strokeWidth = value;
     }
 
     public void normal() {
@@ -183,6 +184,7 @@ public class MyPaintView extends View {
     public void clear() {
         backgroundColor = DEFAULT_BG_COLOR;
         paths.clear();
+        undonePaths.clear();
         normal();
         invalidate();
     }
@@ -213,6 +215,7 @@ public class MyPaintView extends View {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void touchStart(float x, float y) {
+        undonePaths.clear();
         mPath = new Path();
         FingerPath fp = new FingerPath(currentColor, emboss, blur, strokeWidth, mPath);
         paths.add(fp);
@@ -236,6 +239,39 @@ public class MyPaintView extends View {
 
     private void touchUp() {
         mPath.lineTo(mX, mY);
+//        //Extra
+//        // commit the path to our offscreen
+//        mCanvas.drawPath(mPath, mPaint);
+//        // kill this so we don't double draw
+//        FingerPath fp = new FingerPath(currentColor, emboss, blur, strokeWidth, mPath);
+//        paths.add(fp);
+//        mPath = new Path();
+    }
+
+    public void onClickUndo () {
+        if (paths.size()>0)
+        {
+            undonePaths.add(paths.remove(paths.size()-1));
+            invalidate();
+        }
+        else
+        {
+
+        }
+        //toast the user
+    }
+
+    public void onClickRedo (){
+        if (undonePaths.size()>0)
+        {
+            paths.add(undonePaths.remove(undonePaths.size()-1));
+            invalidate();
+        }
+        else
+        {
+
+        }
+        //toast the user
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

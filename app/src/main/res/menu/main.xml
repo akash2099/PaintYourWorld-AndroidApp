@@ -7,15 +7,32 @@
         app:showAsAction="always"
         android:title="Save" />
     <item
+        android:id="@+id/undo"
+        android:icon="@drawable/ic_undo_black_24dp"
+        app:showAsAction="always"
+        android:title="Undo" />
+    <item
+        android:id="@+id/redo"
+        android:icon="@drawable/ic_redo_black_24dp"
+        app:showAsAction="always"
+        android:title="Redo" />
+    <item
         android:id="@+id/normal"
-        android:title="NORMAL" />
+        android:icon="@drawable/ic_blur_off_black_24dp"
+        app:showAsAction="never"
+        android:title="Normal" />
+    <item
+        android:id="@+id/clear"
+        android:icon="@drawable/ic_delete_black_24dp"
+        app:showAsAction="always"
+        android:title="Clear" />
 <!--    <item-->
 <!--        android:id="@+id/emboss"-->
 <!--        android:title="EMBOSS" />-->
     <item
         android:id="@+id/blur"
-        android:title="BLUR" />
-    <item
-        android:id="@+id/clear"
-        android:title="CLEAR" />
+        android:icon="@drawable/ic_blur_on_black_24dp"
+        app:showAsAction="never"
+        android:title="Blur" />
+
 </menu>
