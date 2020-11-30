@@ -4,17 +4,17 @@ A painting cum whiteboard app for your wide imaginations
 
 ## Features :fire:
 
-- DRAW
+:black_nib: DRAW
 
-- CHANGE BRUSH COLOR
+:rainbow: CHANGE BRUSH COLOR
 
-- CHANGE BRUSH SIZE
+:left_right_arrow: CHANGE BRUSH SIZE
 
-- CHANGE BRUSH TYPE (NORMAL, BLUR)
+:twisted_rightwards_arrows: CHANGE BRUSH TYPE (NORMAL, BLUR)
 
-- REDO, UNDO
+:arrows_counterclockwise: REDO, UNDO
 
-- SAVE TO GALARY
+:arrow_down: SAVE TO GALARY
 
 
 ## Framework Used :star2:
